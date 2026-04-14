@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: alphaotpservices
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: NODE_ENV
+        value: production
+      # Optional: if you want to set IVASMS credentials via environment (recommended)
+      - key: IVASMS_EMAIL
+        sync: false
+      - key: IVASMS_PASSWORD
+        sync: false
+      # WhatsApp channel JID (can also be set via .setchannel command)
+      - key: DEFAULT_CHANNEL_JID
+        sync: false
+      # Default admin number (without +)
+      - key: DEFAULT_ADMIN
+        sync: false
+    disk:
+      name: session-data
+      mountPath: /opt/render/project/src/main_bot_session
+      sizeGB: 1
+    healthCheckPath: /
